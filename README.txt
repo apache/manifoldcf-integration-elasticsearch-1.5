@@ -17,14 +17,7 @@ Compatibility
 ------------
 
 This version of this component is fully functional with Apache ManifoldCF 1.6 and
-above and with Elasticsearch 1.5.2.
-
-Upgrading
----------
-If you are replacing a version of Apache ManifoldCF Plugin for ElasticSearch that is
-older than version 2.0, you must declare two additional fields (representing parent
-acls and parent deny acls), and reindex all your documents.  Otherwise, the plugin
-will prevent you from viewing any documents.
+above and with Elasticsearch 1.5.x.
 
 Instructions for Building Apache ManifoldCF Plugin for Elastic Search from Source
 -----------------------------------------------------------------------------
@@ -49,7 +42,7 @@ mvn install
 
 The JAR packages can be found in the target folder:
 
-target/elasticsearch-plugin-mcf-<VERSION>.jar
+target/elasticsearch-1.5-plugin-mcf-<VERSION>.jar
 
 ... where <VERSION> is the release version
 
@@ -67,14 +60,74 @@ mvn antrun:run
 
 Usage
 ---------
-If you want to use security filter you should pass "u" parameter to your
-HTTP query string with the name of the authenticated user.
-HTTP queries without this parameter will be processed normally.
+
+Integrate this plugin with your Controller in the following way:
+
+@RestController
+@RequestMapping("/search")
+public class SearchController {
+
+    private SearchService searchService;
+
+    @Autowired
+    public SearchController(SearchService searchService){
+        this.searchService = searchService;
+    }
+
+    @RequestMapping(value="**", method = RequestMethod.POST)
+        public ResponseEntity<String> forwardQuery(HttpServletRequest request) throws ServletException, IOException {
+        try {
+            return new ResponseEntity<>(searchService.search(request),new HttpHeaders(),HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>( "IO Problem: " + e.getMessage(),new HttpHeaders(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+}
+
+To integrate this plugin to authorize automatically with your Service, use:
+
+@Service
+public class SearchService {
+
+    private final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+    public String search(HttpServletRequest request) throws IOException {
+        String jsonBody = IOUtils.toString(request.getInputStream());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        String forwardTo = "http://<ElasticSearch_Host_And_Port>" + request.getServletPath() + "?u=" + username;
+        forwardTo = forwardTo.replace("/search", "");
+        HttpPost post = new HttpPost(forwardTo);
+        post.setEntity(new StringEntity(jsonBody));
+        HttpResponse httpResponse = httpClient.execute(post);
+        int rval = httpResponse.getStatusLine().getStatusCode();
+
+        if (rval != 200)
+        {
+            String response = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+            throw new IOException(" Connection problem: " + Integer.toString(rval)+"; " + response);
+        }
+
+        InputStream is = httpResponse.getEntity().getContent();
+
+        return IOUtils.toString(is);
+    }
+}
+
+Finally, invoke ElasticSearch in the following manner to filter documents with security:
+
+http://<ElasticSearch_Host_And_Port/_all/_search?u=<user>
+
+Or, optionally:
+
+http://<ElasticSearch_Host_And_Port/_all/_search?u=<user>@<domain>
+http://<ElasticSearch_Host_And_Port/_all/_search?u=<user1>@<domain1>,<user2>@<domain2>...
 
 Licensing
 ---------
 
-Apache ManifoldCF Plugin for Elastic Search is licensed under the
+Apache ManifoldCF Plugin for Elastic Search 1.5 is licensed under the
 Apache License 2.0. See the files called LICENSE.txt and NOTICE.txt
 for more information.
 
