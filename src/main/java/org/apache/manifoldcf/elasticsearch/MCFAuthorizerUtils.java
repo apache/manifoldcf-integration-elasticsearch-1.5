@@ -1,4 +1,4 @@
-/* $Id: MCFAuthorizer.java 1571011 2014-02-23 13:46:13Z kwright $ */
+/* $Id$ */
 /* Modified to MCFAuthorizerUtils.java 2015-04-28 Bart Superson */
 /**
 * Licensed to the Apache Software Foundation (ASF) under one or more

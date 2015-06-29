@@ -1,4 +1,4 @@
-/* $Id: AuthorizerException.java 1454684 2013-03-09 11:02:31Z kwright $ */
+/* $Id$ */
 /* Modified to MCFAuthorizerException.java 2015-04-28 Bart Superson */
 /**
 * Licensed to the Apache Software Foundation (ASF) under one or more
