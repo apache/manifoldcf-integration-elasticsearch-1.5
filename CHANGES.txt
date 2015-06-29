@@ -1,0 +1,27 @@
+Apache ManifoldCF Plugin for Elastic Search change Log
+$Id: CHANGES.txt 1571169 2015-04-29  Bartlomiej Superson $
+
+======================= Release 3.0 =====================
+
+Plugin modified to work with Elasticsearch 1.5.2.
+
+======================= Release 2.0 =====================
+
+CONNECTORS-886: Add support for parent security.  This
+change requires reindexing of all content supported by this plugin.
+(Karl Wright)
+
+======================= Release 1.1 =====================
+
+Add functionality making the plugin compatible with multi-domain
+features of ManifoldCF.  Specifically, create method signatures that
+allow multiple domain/username pairs to be passed in.
+(Karl Wright)
+
+======================= Release 0.1 =====================
+
+Added the path.data parameter in the ElasticSearch server: now the data folder is created under the target folder
+(Karl Wright, Piergiorgio Lucidi)
+
+Initial commit.
+(Karl Wright)
