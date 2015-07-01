@@ -51,7 +51,7 @@ public class MCFAuthorizer
   static final public String NOSECURITY_TOKEN = "__nosecurity__";
 
   /** A logger we can use */
-  private static final ESLogger LOG = Loggers.getLogger(this.getClass());
+  private static final ESLogger LOG = Loggers.getLogger(MCFAuthorizer.class);
 
   // Member variables
 
