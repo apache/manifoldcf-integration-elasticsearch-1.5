@@ -54,16 +54,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
- /*
-    New parseSearchRequestMCF function added in utils to parse RestRequest.
-    There are also problems with security using JavaSearchAPI, because it doesn't implements setParam function
-    to set username param, but this can be ommited using JavaScriptAPI, which allows to do that.
-    Security filter can be also applied in this class but there is a problem with proper extraSource parsing.
-    There is also a possibility to create service, inject RestController into it, register RestFilter in it, which
-    should be used only if request handled by RestSearchAction and replace query from this request with
-    the same query wrapped by security filter.
- */
-
 public class MCFAuthorizerRestSearchAction extends RestSearchAction {
 
   protected final MCFAuthorizer authorizer;
@@ -71,9 +61,7 @@ public class MCFAuthorizerRestSearchAction extends RestSearchAction {
   @Inject
   public MCFAuthorizerRestSearchAction(Settings settings, final RestController restController, Client client) {
     super(settings,restController,client);
-    // Set up MCFConfigurationParameters instance from settings
-    final MCFConfigurationParameters conf = new MCFConfigurationParameters();
-    // MHL
+    final MCFConfigurationParameters conf = new MCFConfigurationParameters(settings);
     authorizer = new MCFAuthorizer(conf);
   }
 
@@ -86,7 +74,6 @@ public class MCFAuthorizerRestSearchAction extends RestSearchAction {
   
   protected SearchRequest parseSearchRequestMCF(final RestRequest request) throws MCFAuthorizerException {
     SearchRequest searchRequest;
-    //if(usernameAndDomain[0]==null) throw new MCFAuthorizerException("Username not passed.");
     if(request.param("u")!=null) {
       String[] authenticatedUserNamesAndDomains = request.param("u").split(",");
       String[] indices = Strings.splitStringByCommaToArray(request.param("index"));

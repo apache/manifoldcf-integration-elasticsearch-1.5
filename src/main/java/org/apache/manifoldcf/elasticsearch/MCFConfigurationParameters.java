@@ -1,5 +1,5 @@
 /* $Id$ */
-
+/* Modified 2015-07-01 by Bart Superson */
 /**
 * Licensed to the Apache Software Foundation (ASF) under one or more
 * contributor license agreements. See the NOTICE file distributed with
@@ -18,6 +18,8 @@
 */
 package org.apache.manifoldcf.elasticsearch;
 
+import org.elasticsearch.common.settings.Settings;
+
 /** This class represents the configuration information that the QueryModifier
 * needs to perform its job.
 */
@@ -35,11 +37,21 @@ public class MCFConfigurationParameters
   public String denyFieldPrefix = "deny_token_";
   /** Connection pool size, e.g. 50 */
   public int connectionPoolSize = 50;
-  
+
+  public  MCFConfigurationParameters(){};
+
+  public MCFConfigurationParameters(Settings settings) {
+      setBaseURL(settings.get("mcf.authority_service_base_url", authorityServiceBaseURL));
+      setConnectionTimeout(settings.getAsInt("mcf.http.connection_timeout", connectionTimeout));
+      setSocketTimeout(settings.getAsInt("mcf.http.socket_timeout",socketTimeout));
+      setAllowFieldPrefix(settings.get("mcf.allow_field_prefix"));
+      setDenyFieldPrefix(settings.get("mcf.deny_field_prefix"));
+      setConnectionPoolSize(settings.getAsInt("mcf.http.connection_pool_size",connectionPoolSize));
+  }
+
   public MCFConfigurationParameters setBaseURL(String baseURL)
   {
-    this.authorityServiceBaseURL = baseURL;
-    return this;
+    this.authorityServiceBaseURL = baseURL;    return this;
   }
   
   public MCFConfigurationParameters setConnectionTimeout(int timeout)
