@@ -38,11 +38,11 @@ http://maven.apache.org/run-maven/index.html
 Execute the following command in order to build the JAR packages and install 
 them to the local repository:
 
-mvn install
+mvn clean install
 
 The JAR packages can be found in the target folder:
 
-target/elasticsearch-1.5-plugin-mcf-<VERSION>.jar
+target/elasticsearch-1.5-plugin-mcf-<VERSION>-jar-with-dependencies.jar
 
 ... where <VERSION> is the release version
 
@@ -61,7 +61,29 @@ mvn antrun:run
 Usage
 ---------
 
-Integrate this plugin with your Controller in the following way:
+1) Configure the plugin using Elasticsearch config file (elasticsearch.yml) by providing these parameters:
+
+    "mcf.authority_service_base_url" - the URL to the ManifoldCF Authority Service (default: "http://localhost:8345/mcf-authority-service")
+    "mcf.http.connection_timeout" - HTTP client connection timeout (default: 60000)
+    "mcf.http.socket_timeout" - HTTP client socket timeout (default: 300000)
+    "mcf.allow_field_prefix" - allow field prefix (default: "allow_token_")
+    "mcf.deny_field_prefix" - deny field prefix (default: "deny_token_")
+    "mcf.http.connection_pool_size" - HTTP client connection pool size (default: 50).
+
+
+2) Invoke ElasticSearch in the following manner to filter documents with security:
+
+http://<ElasticSearch_Host_And_Port/<index_name>/_search?u=<user>
+
+Or, optionally:
+
+http://<ElasticSearch_Host_And_Port/<index_name>/_search?u=<user>@<domain>
+http://<ElasticSearch_Host_And_Port/<index_name>/_search?u=<user1>@<domain1>,<user2>@<domain2>...
+
+If the "u" parameter is not provided, no security filtering will be done.
+
+
+3) Integrate this plugin with your Controller in the following way:
 
 @RestController
 @RequestMapping("/search")
@@ -85,7 +107,7 @@ public class SearchController {
     }
 }
 
-To integrate this plugin to authorize automatically with your Service, use:
+4) To integrate this plugin to authorize automatically with your Service, use:
 
 @Service
 public class SearchService {
@@ -115,25 +137,6 @@ public class SearchService {
     }
 }
 
-
-Configure the plugin using Elasticsearch config file (elasticsearch.yml) by providing these parameters:
-
-    "mcf.authority_service_base_url" - the URL to the ManifoldCF Authority Service (default: "http://localhost:8345/mcf-authority-service")
-    "mcf.http.connection_timeout" - HTTP client connection timeout (default: 60000)
-    "mcf.http.socket_timeout" - HTTP client socket timeout (default: 300000)
-    "mcf.allow_field_prefix" - allow field prefix (default: "allow_token_")
-    "mcf.deny_field_prefix" - deny field prefix (default: "deny_token_")
-    "mcf.http.connection_pool_size" - HTTP client connection pool size (default: 50).
-
-
-Finally, invoke ElasticSearch in the following manner to filter documents with security:
-
-http://<ElasticSearch_Host_And_Port/_all/_search?u=<user>
-
-Or, optionally:
-
-http://<ElasticSearch_Host_And_Port/_all/_search?u=<user>@<domain>
-http://<ElasticSearch_Host_And_Port/_all/_search?u=<user1>@<domain1>,<user2>@<domain2>...
 
 Licensing
 ---------

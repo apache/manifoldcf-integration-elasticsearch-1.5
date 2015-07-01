@@ -26,6 +26,9 @@ import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.TermFilterBuilder;
 
+import org.elasticsearch.common.logging.Loggers;
+import org.elasticsearch.common.logging.ESLogger;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.HttpResponse;
@@ -36,9 +39,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** This class represents the main Java API for modifying SearchRequestBuilder 
 * objects within ElasticSearch.  It is a singleton class whose main public method
@@ -51,7 +51,7 @@ public class MCFAuthorizer
   static final public String NOSECURITY_TOKEN = "__nosecurity__";
 
   /** A logger we can use */
-  private static final Logger LOG = LoggerFactory.getLogger(MCFAuthorizer.class);
+  private static final ESLogger LOG = Loggers.getLogger(this.getClass());
 
   // Member variables
 
