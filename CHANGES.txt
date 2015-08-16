@@ -3,6 +3,8 @@ $Id$
 
 ======================= 2.1-SNAPSHOT =====================
 
+CONNECTORS-1228: Fix default values so they are correct.
+
 ======================= Release 2.0 =====================
 
 Initial commit.
