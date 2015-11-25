@@ -44,11 +44,10 @@ public class MCFConfigurationParameters
       setBaseURL(settings.get("mcf.authority_service_base_url", authorityServiceBaseURL));
       setConnectionTimeout(settings.getAsInt("mcf.http.connection_timeout", connectionTimeout));
       setSocketTimeout(settings.getAsInt("mcf.http.socket_timeout",socketTimeout));
-      setAllowFieldPrefix(settings.get("mcf.allow_field_prefix"));
-      setDenyFieldPrefix(settings.get("mcf.deny_field_prefix"));
+      setAllowFieldPrefix(settings.get("mcf.allow_field_prefix",allowFieldPrefix));
+      setDenyFieldPrefix(settings.get("mcf.deny_field_prefix",denyFieldPrefix));
       setConnectionPoolSize(settings.getAsInt("mcf.http.connection_pool_size",connectionPoolSize));
   }
-
   public MCFConfigurationParameters setBaseURL(String baseURL)
   {
     this.authorityServiceBaseURL = baseURL;    return this;
