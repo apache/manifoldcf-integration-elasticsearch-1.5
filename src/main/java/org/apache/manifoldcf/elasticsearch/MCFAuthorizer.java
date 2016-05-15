@@ -116,14 +116,14 @@ public class MCFAuthorizer
   }
 
   /** Main method for building a filter representing appropriate security.
-   *@param authenticatedUserNamesAndDomains is a list of user names and its domains in the form "user@domain".
+   *@param authenticatedUserNamesAndDomains is a list of user names and its domains in the form "user:mcfdomain".
    *@return the filter builder.
    */
   public FilterBuilder buildAuthorizationFilter(String[] authenticatedUserNamesAndDomains)
     throws  MCFAuthorizerException{
     Map<String,String> domainMap = new HashMap<String,String>();
     for(String buffer : authenticatedUserNamesAndDomains){
-      String[] authenticatedUserNameAndDomain = buffer.split("@", 2);
+      String[] authenticatedUserNameAndDomain = buffer.split(":", 2);
       String authenticatedUserName = authenticatedUserNameAndDomain[0];
       String authenticatedUserDomain;
       if(authenticatedUserNameAndDomain.length<2) authenticatedUserDomain="";
@@ -166,7 +166,7 @@ public class MCFAuthorizer
   }
   
   /** Main method for building a filter representing appropriate security.
-  *@param authenticatedUserName is a user name in the form "user@domain".
+  *@param authenticatedUserName is a user name in the form "user:mcfdomain".
   *@return the filter builder.
   */
   public FilterBuilder buildAuthorizationFilter(String authenticatedUserName)
@@ -176,7 +176,7 @@ public class MCFAuthorizer
   }
   
   /** Main method for building a filter representing appropriate security.
-  *@param authenticatedUserName is a user name in the form "user@domain".
+  *@param authenticatedUserName is a user name in the form "user".
   *@param authenticatedUserDomain is the corresponding MCF authorization domain.
   *@return the filter builder.
   */
