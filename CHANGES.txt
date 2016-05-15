@@ -3,9 +3,11 @@ $Id$
 
 ======================= 2.1-SNAPSHOT =====================
 
-CONNECTORS-1228: Fix default values so they are correct.
-
 ======================= Release 2.0 =====================
+
+CONNECTORS-1314: Use ":" as mcf user name / mcf domain name separator instead of "@".
+
+CONNECTORS-1228: Fix default values so they are correct.
 
 Initial commit.
 (Karl Wright, on behalf of Bartłomiej Superson)
