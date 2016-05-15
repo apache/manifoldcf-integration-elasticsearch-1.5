@@ -22,11 +22,11 @@ above and with Elasticsearch 1.5.x.
 Instructions for Building Apache ManifoldCF Plugin for Elastic Search from Source
 -----------------------------------------------------------------------------
 
-1. Download the Java SE 6 JDK (Java Development Kit), or greater, from
+1. Download the Java SE 7 JDK (Java Development Kit), or greater, from
    http://www.oracle.com/technetwork/java/index.html.
    You will need the JDK installed, and the %JAVA_HOME%\bin directory included
    on your command path.  To test this, issue a "java -version" command from your
-   shell and verify that the Java version is 1.6 or greater.
+   shell and verify that the Java version is 1.7 or greater.
 
 2. Download and install Maven 2.2.1 or later.  Maven installation and configuration
    instructions can be found here:
