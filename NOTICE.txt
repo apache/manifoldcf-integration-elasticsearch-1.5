@@ -1,6 +1,5 @@
 Apache ManifoldCF Plugin for Elastic Search
-Original work Copyright 2010-2013 The Apache Software Foundation
-Modified work Copyright 2015 Bartlomiej Superson
+Copyright 2010-2017 The Apache Software Foundation
 
 This product includes software developed by
 The Apache Software Foundation (http://www.apache.org/).
