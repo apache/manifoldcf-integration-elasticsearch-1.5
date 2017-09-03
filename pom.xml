@@ -29,7 +29,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.manifoldcf.elasticsearch</groupId>
 
-  <name>ManifoldCF ElasticSearch Plugin</name>
+  <name>ManifoldCF ElasticSearch 1.5 Plugin</name>
   <artifactId>elasticsearch-1.5-plugin-mcf</artifactId>
   <version>2.1-SNAPSHOT</version>
   <packaging>jar</packaging>

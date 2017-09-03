@@ -1,5 +1,5 @@
-Apache ManifoldCF Plugin for Elastic Search requires
---------------------------------------------------
+Apache ManifoldCF Plugin for Elastic Search 1.5 requires
+-----------------------------------------------------
 * JRE 1.7 or above
 * mvn 2.2 or higher
 

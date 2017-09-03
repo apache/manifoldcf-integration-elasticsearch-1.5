@@ -1,4 +1,4 @@
-Apache ManifoldCF Plugin for Elastic Search change Log
+Apache ManifoldCF Plugin for Elastic Search 1.5 change Log
 $Id$
 
 ======================= 2.1-SNAPSHOT =====================
