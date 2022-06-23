@@ -43,7 +43,7 @@
 
   <!-- Move these to the parent pom, when I create a parent pom -->
   <properties>
-    <elasticsearch.version>1.5.2</elasticsearch.version>
+    <elasticsearch.version>6.8.17</elasticsearch.version>
     <junit.version>4.8.2</junit.version>
     <log4j.version>1.2.16</log4j.version>
     <httpcomponent.version>4.4.1</httpcomponent.version>
